@@ -32,14 +32,13 @@ def memrecall():
 #mathematical operations
 
 def equal():
-    try:
-        global entry1t,entry2t
-        entry1t+=" "+entry2t
-        entry1.config(text=entry1t+"=")
-        entry2.config(text=eval(entry1t))
-        entry2t=str(eval(entry1t))
-    except:
-        pass
+    
+    global entry1t,entry2t
+    if not "=" in entry1t:
+        entry1t+=" "+entry2t+"="
+        entry1.config(text=entry1t)
+        entry2.config(text=eval(entry1t[:-1]))
+        entry2t=str(eval(entry1t[:-1]))
 
 def add():
     global entry1t,entry2t
@@ -213,7 +212,7 @@ def startCalc():
     b0.grid(row=14,column=3,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
     pointb=Button(root,text=".",bg="#060606",fg="#FFFFFF",font=('bold'),bd=0,command=lambda : inputentry2("."))
     pointb.grid(row=14,column=6,rowspan=2,columnspan=3,ipadx=28,ipady=8,padx=1,pady=1)
-    equalb=Button(root,text="=",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0,command=equal)
+    equalb=Button(root,text="=",bg="#2F3031",fg="#FFFFFF",font=('bold'),bd=0,command=equal)
     equalb.grid(row=14,column=9,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
 
 
