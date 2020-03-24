@@ -3,7 +3,7 @@ A exact replica of the Calculator GUI which comes bundled with MS Win10
 
 
 ## UI Comparison <br>
-    [UIComparison]("./UIcomparison.png")
+    ![UIComparison](./UIcomparison.png)
 
 
 ## Features to add
