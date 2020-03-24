@@ -4,17 +4,17 @@ from tkinter import ttk
 
 entry1t=""
 entry2t="0"
-memory=0
+memory="0"
 
 
 #functions to add memory operations
 def memclear():
     global memory
-    memory=0
+    memory="0"
 
 def memadd():
     global memory
-    memory+=int(entry2t)
+    memory=int(memory)+int(entry2t)
 
 def memsub():
     global memory
@@ -29,11 +29,51 @@ def memrecall():
     entry2t=str(memory)
     entry2.config(text=entry2t)
 
+#mathematical operations
+
+def equal():
+    try:
+        global entry1t,entry2t
+        entry1t+=" "+entry2t
+        entry1.config(text=entry1t+"=")
+        entry2.config(text=eval(entry1t))
+        entry2t=str(eval(entry1t))
+    except:
+        pass
+
+def add():
+    global entry1t,entry2t
+    entry1t=entry2t+"+"
+    disp=entry2t+" + "
+    entry1.config(text=disp)
+    entry2t=""
+
+def sub():
+    global entry1t,entry2t
+    entry1t=entry2t+"-"
+    disp=entry2t+" - "
+    entry1.config(text=disp)
+    entry2t=""
+
+def mul():
+    global entry1t,entry2t
+    entry1t=entry2t+"*"
+    disp=entry2t+" X "
+    entry1.config(text=disp)
+    entry2t=""
+
+def div():
+    global entry1t,entry2t
+    entry1t=entry2t+"/"
+    disp=entry2t+" ÷ "
+    entry1.config(text=disp)
+    entry2t=""
+
 #to separate digits
 def separator(a):
-    b=""
-    for x in range(len(a)-1,-1,-3)
-        a=a[:x]+","+a[x:]
+    for x in range(len(a)-3,-1,-3):
+        if x!=0:
+            a=a[:x]+","+a[x:]
     return a
 
 #func to implement c button
@@ -56,7 +96,7 @@ def backspace():
     entry2t=entry2t[:-1]
     if entry2t=="":
         entry2t="0"
-    entry2.config(text=entry2t)
+    entry2.config(text=separator(entry2t))
 
 #func to implement ce button
 def clear2():
@@ -76,20 +116,21 @@ def inputentry2(a):
             if entry2t=="0":
                 entry2t=""
             entry2t+=a
-            entry2.config(text=entry2t)
+            entry2.config(text=separator(entry2t))
 
 def startCalc():
     root=Tk()
     root.title("Calculator")
     root.configure(bg="#1F1F1F")
     root.resizable(0,0)
+    root.iconphoto(False,PhotoImage(file='C:\\Users\\skili\\Documents\\GitHub\\MS-Calculator-gui\\icon.png'))
     
     # root.geometry()
 
     #making the display
     global entry1,entry2
     entry1=Label(root,bg="#1F1F1F",fg="#FFFFFF")
-    entry1.grid(row=0,column=0,columnspan=12,sticky=E)
+    entry1.grid(row=0,column=0,columnspan=12,sticky=E,padx=3,pady=3)
     entry2=Label(root,font=('Helvetica',35,'bold'),bg="#1F1F1F",fg="#FFFFFF")
     entry2.grid(row=1,column=0,columnspan=12,rowspan=2,sticky=E,padx=3,pady=10)
     entry2.config(text="0")
@@ -128,7 +169,7 @@ def startCalc():
     sb.grid(row=6,column=3,rowspan=2,columnspan=3,ipadx=29,ipady=14,padx=1,pady=1)
     rootb=Button(root,text="√x",bg="#131313",fg="#FFFFFF",bd=0)
     rootb.grid(row=6,column=6,rowspan=2,columnspan=3,ipadx=28,ipady=14,padx=1,pady=1)
-    divb=Button(root,text="÷",bg="#131313",fg="#FFFFFF",bd=0)
+    divb=Button(root,text="÷",bg="#131313",fg="#FFFFFF",bd=0,command=div)
     divb.grid(row=6,column=9,rowspan=2,columnspan=3,ipadx=29,ipady=14,padx=1,pady=1)
 
 
@@ -139,7 +180,7 @@ def startCalc():
     b8.grid(row=8,column=3,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
     b9=Button(root,text="9",bg="#060606",fg="#FFFFFF",font=('bold'),bd=0,command=lambda : inputentry2("9"))
     b9.grid(row=8,column=6,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
-    mulb=Button(root,text="X",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0)
+    mulb=Button(root,text="X",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0,command=mul)
     mulb.grid(row=8,column=9,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
 
 
@@ -150,7 +191,7 @@ def startCalc():
     b5.grid(row=10,column=3,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
     b6=Button(root,text="6",bg="#060606",fg="#FFFFFF",font=('bold'),bd=0,command=lambda : inputentry2("6"))
     b6.grid(row=10,column=6,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
-    subb=Button(root,text="-",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0)
+    subb=Button(root,text="-",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0,command=sub)
     subb.grid(row=10,column=9,rowspan=2,columnspan=3,ipadx=28,ipady=8,padx=1,pady=1)
 
 
@@ -161,7 +202,7 @@ def startCalc():
     b2.grid(row=12,column=3,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
     b3=Button(root,text="3",bg="#060606",fg="#FFFFFF",font=('bold'),bd=0,command=lambda : inputentry2("3"))
     b3.grid(row=12,column=6,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
-    addb=Button(root,text="+",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0)
+    addb=Button(root,text="+",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0,command=add)
     addb.grid(row=12,column=9,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
 
 
@@ -172,7 +213,7 @@ def startCalc():
     b0.grid(row=14,column=3,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
     pointb=Button(root,text=".",bg="#060606",fg="#FFFFFF",font=('bold'),bd=0,command=lambda : inputentry2("."))
     pointb.grid(row=14,column=6,rowspan=2,columnspan=3,ipadx=28,ipady=8,padx=1,pady=1)
-    equalb=Button(root,text="=",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0)
+    equalb=Button(root,text="=",bg="#131313",fg="#FFFFFF",font=('bold'),bd=0,command=equal)
     equalb.grid(row=14,column=9,rowspan=2,columnspan=3,ipadx=26,ipady=8,padx=1,pady=1)
 
 
